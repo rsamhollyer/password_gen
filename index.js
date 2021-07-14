@@ -1,1 +1,3 @@
-const dotenv = require('dotenv').config();
+const words = require('./api/words.json');
+
+console.log(words.length);
