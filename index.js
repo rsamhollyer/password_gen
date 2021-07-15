@@ -1,3 +1,3 @@
-const words = require('./api/words.json');
+const words = require('./data/words.json');
 
 console.log(words.length);
