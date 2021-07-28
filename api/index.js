@@ -6,11 +6,11 @@ const { getInstance } = require('./instance');
 
 async function getWords() {
   try {
-    let { data } = await getInstance().catch(error => new Error(error));
+    let { data } = await getInstance();
     data = data.map(item => ({ word: item.word }));
     return data;
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return error;
   }
 }
@@ -20,7 +20,7 @@ async function getAllTheWords() {
 
   while (lexiconArray.length < 7776) {
     try {
-      const data = await getWords().catch(error => new Error(error));
+      const data = await getWords();
       lexiconArray = [].concat(lexiconArray.concat(data));
       lexiconArray = lexiconArray.reduce((acc, cur) => {
         const wordObj = acc.find(item => item.word === cur.word);
@@ -30,7 +30,7 @@ async function getAllTheWords() {
         return acc;
       }, []);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       return error;
     }
   }
@@ -42,10 +42,10 @@ async function writeAllTheWords() {
     const data = await getAllTheWords().then(response =>
       JSON.stringify(response, null, 2)
     );
-    const jsonPath = resolve(__dirname, '../data/words.json');
+    const jsonPath = resolve(__dirname, '../data/apiwords.json');
     await writeFileSync(jsonPath, data, { flag: 'w' });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return error;
   }
 }
