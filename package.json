@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "preferGlobal": true,
+  "bin":"./index.js",
   "scripts": {
     "dev": "nodemon index.js"
   },
@@ -37,6 +39,9 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "chalk": "^3.0.0",
+    "clipboardy": "^2.3.0",
+    "commander": "^8.1.0",
     "dotenv": "^10.0.0",
     "random-number-csprng": "^1.0.2"
   }
