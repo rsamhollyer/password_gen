@@ -13,20 +13,22 @@ program
   .option('-s, --save', 'save password to passwords.txt')
   .option('-asc, --ascii', 'created password is ascii characters only')
   .parse();
-console.log(program.opts());
-const { length, save, isAscii } = program.opts();
-
+const { length, save, ascii } = program.opts();
+log(program.opts());
 // Get generated password
-const generatedPassword = generatePassword(length, isAscii);
+async function passwordGen() {
+  const generatedPassword = await generatePassword(length, ascii);
+  log(generatedPassword);
+  // Save to file
+  if (save) {
+    savePassword(generatedPassword);
+  }
 
-// Save to file
-if (save) {
-  savePassword(generatedPassword);
+  // Copy to clipboard
+  clipboardy.writeSync(generatedPassword);
+
+  // Output generated password
+  log(chalk.blue('Generated Password: ') + chalk.bold(generatedPassword));
+  log(chalk.yellow('Password copied to clipboard'));
 }
-
-// Copy to clipboard
-clipboardy.writeSync(generatedPassword);
-
-// Output generated password
-log(chalk.blue('Generated Password: ') + chalk.bold(generatedPassword));
-log(chalk.yellow('Password copied to clipboard'));
+passwordGen();
