@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 const axios = require('axios');
-const { url } = require('../config').api;
-const { params } = require('../config').api;
+const { url, params } = require('../config').api;
 
 const getInstance = axios.create({
   baseURL: url,
